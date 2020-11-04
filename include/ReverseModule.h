@@ -3,17 +3,23 @@
 
 #include "Module.h"
 
-/// @brief Reverse Module
+/// Reverse module
 class ReverseModule : public Module
 {
+
 public:
+
   ReverseModule(std::string);
 
-  // Process function should reverse the input string
-  // ex:
-  //    in - "Hello"
-  //    out - "olleH"
-  virtual std::string process(std::string str);
+  /**
+  * Process function returns the input string reversed.
+  *
+  * Example:
+  *    in - "hello"
+  *    out - "olleh"
+  */
+  virtual std::string process();
+
 };
 
 #endif /* #ifndef __REVERSE_MODULE_H__ */

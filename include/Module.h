@@ -2,45 +2,31 @@
 #define __MODULE_H__
 
 #include <string>
-#include <vector>
+#include <queue>
 
-/// @brief Module base class
+typedef std::queue<std::string> queue_string;
+
+/// Module base class
 class Module
 {
+
 public:
-  /// @brief User-given module name
+
+  // user-given module name
   std::string m_name;
 
-  /// @brief input modules
-  std::vector<Module*> m_input_connections;
+  // input strings to module
+  queue_string inputs;
 
-  /// @brief output module
-  Module * m_output_connection = NULL;
-
-  /// @brief Constructor
+  /// Constructor
   Module(std::string name);
 
-  /// @brief Destructor
+  /// Destructor
   ~Module();
 
-  ///
-  void connectOutputTo(Module * m);
+  /// Process module gets overridden by child module classes
+  virtual std::string process();
 
-  void connectInputTo(Module * m);
-
-  virtual std::string process(std::string str);
-
-  /// Enumeration used to identify the module operation type
-  enum ModuleOperation
-  {
-    ECHO = 0,
-    DELAY,
-    REVERSE,
-    NOOP
-  };
-
-  /// Module operation type
-  ModuleOperation m_operation;
 };
 
 

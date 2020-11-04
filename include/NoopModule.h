@@ -3,17 +3,22 @@
 
 #include "Module.h"
 
-/// @brief Noop Module
+/// noopp module
 class NoopModule : public Module
 {
+
 public:
+
   NoopModule(std::string);
 
-  // Process function should NOOP the input string
-  // ex:
-  //    in - "Hello"
-  //    out - "Hello"
-  virtual std::string process(std::string str);
+  /**
+  * Process function returns the input string.
+  *
+  * Example:
+  *    in - "hello"
+  *    out - "hello"
+  */
+  virtual std::string process();
 };
 
 #endif /* #ifndef __NOOP_MODULE_H__ */

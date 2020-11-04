@@ -3,17 +3,23 @@
 
 #include "Module.h"
 
-/// @brief Echo Module
+/// Echo module
 class EchoModule : public Module
 {
+
 public:
+
   EchoModule(std::string);
 
-  // Process function should echo the input string
-  // ex:
-  //    in - "Hello"
-  //    out - "HelloHello"
-  virtual std::string process(std::string str);
+  /**
+  * Process function returns the echo of the input string.
+  *
+  * Example:
+  *    in - "hello"
+  *    out - "hello hello"
+  */
+  virtual std::string process();
+
 };
 
 #endif /* #ifndef __ECHO_MODULE_H__ */

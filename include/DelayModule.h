@@ -3,27 +3,26 @@
 
 #include "Module.h"
 
-/// @brief Delay Module
+/// Delay module
 class DelayModule : public Module
 {
+
 public:
+
   DelayModule(std::string name);
 
-  // Process function should return the previous input string
-  // ex:
-  //    in - "Foo"
-  //    out - "hello"
-  //    in - "Bar"
-  //    out - "Foo"
-  virtual std::string process(std::string str);
+  /**
+  * Process function returns the previous input string. The string 'hello' is
+  * set as initial string
+  *
+  * Example:
+  *    in - "hello"
+  *    out - "hello"
+  *    in - "hey"
+  *    out - "hello"
+  */
+  virtual std::string process();
 
-  // Reset the delay module, so that the next initial output is "hello"
-  void reset()
-  {
-    m_previousStr = "hello";
-  }
-private:
-  std::string m_previousStr = "hello";
 };
 
 #endif /* #ifndef __DELAY_MODULE_H__ */

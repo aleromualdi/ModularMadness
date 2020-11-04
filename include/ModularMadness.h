@@ -1,81 +1,162 @@
 #ifndef __MODULAR_MADNESS_H__
 #define __MODULAR_MADNESS_H__
 
-// Include modules
+// includes
+#include <iostream>
+#include <string>
+#include <queue>
+#include <sstream>
+#include <vector>
+#include <iterator>
+
+// include modules
 #include "Module.h"
 #include "DelayModule.h"
 #include "EchoModule.h"
 #include "NoopModule.h"
 #include "ReverseModule.h"
-#include <map>
 
-/// @brief ModularMadness class
+typedef std::vector<std::string> str_vec;
+typedef std::vector<std::vector<int>> int_vec_2d;
+
+
+/// Modular Madness class
 class ModularMadness
 {
+
 public:
-  ModularMadness();
-  ~ModularMadness()
+
+  /// Constructor
+  ModularMadness() ;
+
+  /// Destructor
+  ~ModularMadness() ;
+
+  // array of pointers to Module objects, populated in order of module creation
+  static std::vector<Module *> modules;
+
+  // number of modules added in modules array
+  static int numModules;
+
+  // max number of output strings
+  static int availableOutputs;
+
+  // arry of integers representing connections between modules
+  static int_vec_2d modConnections;
+
+  /**
+  * Initialize 2d arry of integers representing connections between modules.
+  * They are initialized with -1, to signify no module connection.
+  *
+  * @param num_modules number of modules
+  */
+  static void initModConnections(int num_modules);
+
+  /**
+  * Reset ModularMadness.
+  */
+  static void reset();
+
+  /**
+  * Get module array.
+  *
+  * @return vector of pointers to Module objects
+  */
+  static std::vector<Module *> getModules()
   {
-    reset();
+   return modules;
   }
 
-  /// main loop
-  static void loop();
+  /**
+  * Get number of defined modules.
+  *
+  * @return number of modules
+  */
+  static int getNumModules()
+  {
+    return numModules;
+  }
 
-  /// @brief Define a module
-  /// @param[in] name - the name of the module
-  /// @param[in] operation - the operation type of the module
-  /// @return void
+  /**
+  * Get number of available output strings.
+  *
+  * @return number of available output strings
+  */
+  static int getAvailableOutputs()
+  {
+    return availableOutputs;
+  }
+
+  /**
+  * Get module connections.
+  *
+  * Example:
+  *   modConnections[0][3] = 5 means module 0 has 4 connections and the fourth
+  *   connection is with the firth module defined in 'modules' array.
+  *
+  * @return modConnections 2d vector representing connections between modules
+  */
+  static int_vec_2d getModConnections()
+  {
+    return modConnections;
+  }
+
+  /**
+  * Tokenize the input line string.
+  *
+  * @param input_line input line string
+  * @return vector of strings (tokens)
+  */
+  static str_vec tokenizeLine(std::string input_line);
+
+  /**
+  * Define module.
+  *
+  * @param name arbitrary name of the module
+  * @param operation specifies what the module should do with its input
+  */
   static void defineModule(std::string name, std::string operation);
 
-  /// @brief Define a connection from module1 to module2.
-  ///        The output of module1 will be routed to the input module2.
-  /// @param[in] module_name1 - the name of module1
-  /// @param[in] module_name2 - the name of module2
-  /// @return void
+  /**
+  * Connects the output of one module to the input of another.
+  *
+  * @param module_name1 name of the first module
+  * @param module_name2 name of the second module
+  */
   static void connectModules(std::string module_name1, std::string module_name2);
 
-  /// @brief send a string through the module stream
-  ///
-  /// @param[in] str - the string to input into the module stream
-  /// @return void
-  static void process(std::string str);
+  /**
+  * Process single word string through the defined module network.
+  */
+  static void processWord(std::string str);
 
-  /// @brief handle the "process" command
-  ///
-  /// @param[in] input_line - the input strings to be processed
-  /// @return void
+  /**
+  * Handler method for procesing input line.
+  *
+  * @param input_line input line string
+  */
   static void handleProcessCommand(std::string input_line);
 
-  /// @reset this class (clear the modules map)
-  static void reset()
-  {
-    // Reset the first module pointer
-    m_first_module = NULL;
+  /**
+  * Check if not all modules are empty.
+  *
+  * @return bool return true if not all modules are empty
+  */
+  static bool modulesNotEmpty();
 
-    // Loop through the map for cleanup
-    for (std::map<std::string,Module *>::iterator it=m_modules.begin(); it!=m_modules.end(); ++it)
-    {
-      // Delete each module
-      delete it->second;
-    }
-
-    // Clear the map
-    m_modules.clear();
-  }
+  /**
+  * Loop on standard input.
+  */
+  static void loop();
 
 private:
-  /// @brief handle the "module" command
+
+  /// Handle the "module" command
   static void handleModuleCommand();
 
-  /// @brief handle the "connect" command
+  /// Handle the "connect" command
   static void handleConnectCommand();
 
-  // Map of modules, keyed by name
-  static std::map<std::string, Module *> m_modules;
-
-  // First module defined
-  static Module * m_first_module;
 };
 
 #endif /* #ifndef __MODULAR_MADNESS_H__ */
