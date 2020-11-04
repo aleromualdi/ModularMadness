@@ -19,4 +19,4 @@ The test named `example` in the `ModularMadnessTest` test fixture exercises the 
 - [ ] Implement cyclic graphs
 - [DONE] Implement signal summing for multiple inputs
 - [DONE] Limit output strings to sixteen times the number of input strings
-- [] Limit output strings to sixteen times the number of input strings: Use callback
+- [ ] Limit output strings to sixteen times the number of input strings: Use callback
