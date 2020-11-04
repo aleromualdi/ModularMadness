@@ -1,54 +1,42 @@
 #include "DelayModule.h"
 
-// The fixture for testing class DelayModule.
 class DelayModuleTest : public ::testing::Test {
  protected:
-  // You can remove any or all of the following functions if its body
-  // is empty.
 
-  DelayModuleTest() {
-     // You can do set-up work for each test here.
-  }
+  DelayModuleTest() { }
 
-  ~DelayModuleTest() override {
-     // You can do clean-up work that doesn't throw exceptions here.
-  }
+  ~DelayModuleTest() override { }
 
-  // If the constructor and destructor are not enough for setting up
-  // and cleaning up each test, you can define the following methods:
-
-  void SetUp() override {
-     // Code here will be called immediately after the constructor (right
-     // before each test).
-  }
-
-  void TearDown() override {
-     // Code here will be called immediately after each test (right
-     // before the destructor).
-  }
-
-  // Objects declared here can be used by all tests in the test case for DelayModule.
 };
 
-// Tests name member
-TEST_F(DelayModuleTest, process)
-{
-  DelayModule m("My Delay Module");
+// test module name
+TEST_F(DelayModuleTest, m_name) {
 
-  // First output is "hello"
-  ASSERT_EQ(m.process("Hello"), "hello");
+  DelayModule * m = new DelayModule("MyModule");
 
-  ASSERT_EQ(m.process("World"), "Hello");
-
-  ASSERT_EQ(m.process(""), "World");
-
-  ASSERT_EQ(m.process(""), "");
+  ASSERT_EQ(m->m_name, "MyModule");
 }
 
-TEST_F(DelayModuleTest, operation)
-{
-  DelayModule m("My Delay Module");
+// test process
+TEST_F(DelayModuleTest, process) {
 
-  // First output is "hello"
-  ASSERT_EQ(m.m_operation, Module::DELAY);
+  DelayModule * m = new DelayModule("MyModule");
+  // set initial input
+  m->inputs.push("hello");
+
+  m->inputs.push("hello");
+  auto p1 = m->process();
+  ASSERT_EQ(p1, "hello");
+
+  m->inputs.push("world");
+  auto p2 = m->process();
+  ASSERT_EQ(p2, "hello");
+
+  m->inputs.push("");
+  auto p3 = m->process();
+  ASSERT_EQ(p3, "world");
+
+  m->inputs.push("");
+  auto p4 = m->process();
+  ASSERT_EQ(p4, "");
 }

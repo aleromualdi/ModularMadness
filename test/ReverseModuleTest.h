@@ -1,47 +1,29 @@
 #include "ReverseModule.h"
 
-// The fixture for testing class ReverseModule.
 class ReverseModuleTest : public ::testing::Test {
  protected:
-  // You can remove any or all of the following functions if its body
-  // is empty.
 
-  ReverseModuleTest() {
-     // You can do set-up work for each test here.
-  }
+  ReverseModuleTest() { }
 
-  ~ReverseModuleTest() override {
-     // You can do clean-up work that doesn't throw exceptions here.
-  }
+  ~ReverseModuleTest() override { }
 
-  // If the constructor and destructor are not enough for setting up
-  // and cleaning up each test, you can define the following methods:
-
-  void SetUp() override {
-     // Code here will be called immediately after the constructor (right
-     // before each test).
-  }
-
-  void TearDown() override {
-     // Code here will be called immediately after each test (right
-     // before the destructor).
-  }
-
-  // Objects declared here can be used by all tests in the test case for ReverseModule.
 };
 
-// Tests process function
-TEST_F(ReverseModuleTest, process)
-{
-  ReverseModule m("My Reverse Module");
+// test module name
+TEST_F(ReverseModuleTest, m_name) {
 
-  ASSERT_EQ(m.process("Hello"), "olleH");
+  ReverseModule * m = new ReverseModule("MyModule");
+
+  ASSERT_EQ(m->m_name, "MyModule");
 }
 
-TEST_F(ReverseModuleTest, operation)
-{
-  ReverseModule m("My Reverse Module");
+// test process
+TEST_F(ReverseModuleTest, process) {
+  ReverseModule * m = new ReverseModule("MyModule");
 
-  // First output is "hello"
-  ASSERT_EQ(m.m_operation, Module::REVERSE);
+  m->inputs.push("hello");
+
+  auto p = m->process();
+
+  ASSERT_EQ(p, "olleh");
 }
