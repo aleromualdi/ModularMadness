@@ -2,10 +2,14 @@
 
 EchoModule::EchoModule(std::string name) : Module(name)
 {
-  m_operation = Module::ECHO;
+
 }
 
-std::string EchoModule::process(std::string str)
+std::string EchoModule::process()
 {
-  return str+str;
+  auto out = this->inputs.front() + " " + this->inputs.front();
+
+  this->inputs.pop();
+
+  return out;
 }

@@ -2,17 +2,13 @@
 
 DelayModule::DelayModule(std::string name) : Module(name)
 {
-  m_operation = Module::DELAY;
 }
 
-std::string DelayModule::process(std::string str)
+std::string DelayModule::process()
 {
-  // Copy the previous string into a temp variable to be returned
-  std::string temp = m_previousStr;
+  auto out = this->inputs.front();
 
-  // Update the previous string
-  m_previousStr = str;
+  this->inputs.pop();
 
-  // Return old (temp) previous string
-  return temp;
+  return out;
 }

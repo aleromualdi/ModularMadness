@@ -1,11 +1,12 @@
 #include "ModularMadness.h"
 #include <iostream>
 
+
 int main()
 {
-  std::cout << "Welcome to Modular Madness!" << std::endl;
 
-  // Loop on forever
+  // ModularMadness::initModConnections();
+
   ModularMadness::loop();
 
   return 0;

@@ -2,10 +2,14 @@
 
 NoopModule::NoopModule(std::string name) : Module(name)
 {
-  m_operation = Module::NOOP;
+  
 }
 
-std::string NoopModule::process(std::string str)
+std::string NoopModule::process()
 {
-  return str;
+  auto out = this->inputs.front();
+
+  this->inputs.pop();
+
+  return out;
 }

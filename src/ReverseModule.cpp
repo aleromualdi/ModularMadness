@@ -2,14 +2,19 @@
 #include <algorithm>
 
 ReverseModule::ReverseModule(std::string name) : Module(name)
-{
-  m_operation = Module::REVERSE;
-}
+ {
 
-std::string ReverseModule::process(std::string str)
-{
-  // Reverse the string
-  std::reverse(str.begin(), str.end());
+ }
 
-  return str;
+std::string ReverseModule::process()
+{
+  // Reverse the string in front of inputs
+  auto out = this->inputs.front();
+  for(int i = 0; i < out.length(); i++)
+  {
+    out[i] = this->inputs.front()[out.length() - i - 1];
+  }
+
+  this->inputs.pop();
+  return out;
 }
